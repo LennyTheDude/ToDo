@@ -56,9 +56,21 @@ tasksRouter.post('/', (req, res, next) => {
     console.log(task);
     if (task.taskId && task.name && task.isdone) {
         tasksList.push(task)
-        res.status(200).send(task)
+        res.status(201).send(task)
     } else {
         res.status(404).send('Unable to add task to the list')
+    }
+})
+
+// delete single task
+tasksRouter.delete('/', (req, res, next) => {
+    const taskId = req.query.taskId;
+    const task = tasksList[taskId];
+    if (task) {
+        tasksList.splice(taskId, 1)
+        res.status(204).send('Task successfully deleted')
+    } else {
+        res.status(404).send('No task with such ID found in the list')
     }
 })
 
