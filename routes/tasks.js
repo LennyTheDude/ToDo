@@ -50,4 +50,17 @@ tasksRouter.get('/:id', (req, res, next) => {
     }
 })
 
+// add new tasks
+tasksRouter.post('/', (req, res, next) => {
+    const task = req.query;
+    console.log(task);
+    if (task.taskId && task.name && task.isdone) {
+        tasksList.push(task)
+        res.status(200).send(task)
+    } else {
+        res.status(404).send('Unable to add task to the list')
+    }
+})
+
+
 module.exports = tasksRouter
