@@ -6,7 +6,7 @@ const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 5000
 
-// show a message on the page when loaded
+// show a message on the main page when loaded
 app.get('/', (req, res) => {
     res.send('TODO-DO-DO-BE-DO-POW.')
 });
@@ -22,7 +22,7 @@ app.listen(PORT, () => {
 
 
 
-/* connection to the DB
+/* // connection to the DB
 
 const Sequelize = require('sequelize')
 
