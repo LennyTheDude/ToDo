@@ -50,7 +50,7 @@ tasksRouter.get('/:id', (req, res, next) => {
     }
 })
 
-// add new tasks
+// add new task
 tasksRouter.post('/', (req, res, next) => {
     const task = req.query;
     console.log(task);
@@ -69,6 +69,25 @@ tasksRouter.delete('/', (req, res, next) => {
     if (task) {
         tasksList.splice(taskId, 1)
         res.status(204).send('Task successfully deleted')
+    } else {
+        res.status(404).send('No task with such ID found in the list')
+    }
+})
+
+// edit a task
+tasksRouter.put('/', (req, res, next) => {
+    const taskId = req.query.taskId;
+    const editedTask = req.query;
+    const taskToEdit = tasksList[taskId];
+
+    if (taskToEdit) {
+        if (taskToEdit.name != editedTask.name) {
+            taskToEdit.name = editedTask.name
+        }
+        if (taskToEdit.isdone != editedTask.isdone) {
+            taskToEdit.isdone = editedTask.isdone
+        }
+        res.status(205).send(editedTask)
     } else {
         res.status(404).send('No task with such ID found in the list')
     }
