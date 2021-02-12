@@ -1,50 +1,51 @@
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config()
-}
-
+require('dotenv').config()
 const express = require('express')
 const app = express()
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 8080
 
-// show a message on the main page when loaded
-app.get('/', (req, res) => {
-    res.send('TODO-DO-DO-BE-DO-POW.')
-});
+tasksList = [
+    {
+        id: 0,
+        name: "wake up",
+        isDone: false
+    },
+    {
+        id: 1,
+        name: "roll up",
+        isDone: false
+    },
+    {
+        id: 2,
+        name: "blaze up",
+        isDone: false
+    },
+    {
+        id: 3,
+        name: "eat up",
+        isDone: false
+    },
+    {
+        id: 4,
+        name: "listen up",
+        isDone: false
+    }
+]
 
-const tasksRouter = require('./routes/tasks.js')
-app.use('/tasks', tasksRouter)
+const tasksGet = require('./routes/tasks/tasks.get')
+app.use('/tasks/', tasksGet)
+
+const taskGet = require('./routes/tasks/task.get')
+app.use('/tasks/', taskGet)
+
+const taskPost = require('./routes/tasks/task.post')
+app.use('/tasks/', taskPost)
+
+const taskPut = require('./routes/tasks/task.put')
+app.use('/tasks/', taskPut)
+
+const taskDelete = require('./routes/tasks/task.delete')
+app.use('/tasks/', taskDelete)
 
 app.listen(PORT, () => {
     console.log(`app started on port ${PORT}`)
 })
-
-
-
-
-
-/* // connection to the DB
-
-const Sequelize = require('sequelize')
-
-const sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USERNAME, process.env.DATABASE_PASSWORD, {
-    host: process.env.DATABASE_HOST,
-    dialect: 'postgres',
-    pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-    }
-})
-
-async function start() {
-    try {
-        await sequelize.authenticate();
-        console.log('Database connection has been established successfully.');
-    } catch (error) {
-        console.error('Unable to connect to the database:', error);
-    }      
-}
-
-start()
-*/
