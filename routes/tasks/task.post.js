@@ -1,7 +1,7 @@
 const express = require('express')
 const tasksRouter = express.Router()
 
-tasksRouter.post('/', (req, res) => {
+tasksRouter.post('/tasks', (req, res) => {
     const task = req.query;
     console.log(task);
     if (task.id && task.name) {

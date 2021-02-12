@@ -2,6 +2,19 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 8080
+const klawSync = require('klaw-sync');
+const path = require('path')
+
+async function useControllers() {
+    const paths = klawSync(`${__dirname}/routes`, {nodir: true});
+    let controllersCount = 0;
+    paths.forEach((file) => {
+        if (path.basename(file.path)[0] === '_' || path.basename(file.path)[0] === '.') return;
+        app.use('/', require(file.path));
+        controllersCount++;
+    });
+    console.info(`Total controllers: ${controllersCount}`);
+}
 
 tasksList = [
     {
@@ -31,20 +44,7 @@ tasksList = [
     }
 ]
 
-const tasksGet = require('./routes/tasks/tasks.get')
-app.use('/tasks/', tasksGet)
-
-const taskGet = require('./routes/tasks/task.get')
-app.use('/tasks/', taskGet)
-
-const taskPost = require('./routes/tasks/task.post')
-app.use('/tasks/', taskPost)
-
-const taskPut = require('./routes/tasks/task.put')
-app.use('/tasks/', taskPut)
-
-const taskDelete = require('./routes/tasks/task.delete')
-app.use('/tasks/', taskDelete)
+useControllers()
 
 app.listen(PORT, () => {
     console.log(`app started on port ${PORT}`)

@@ -1,7 +1,7 @@
 const express = require('express')
 const tasksRouter = express.Router()
 
-tasksRouter.get('/:id', (req, res) => {
+tasksRouter.get('/tasks/:id', (req, res) => {
     const task = tasksList[req.params.id]
     if (task) {
         res.status(200).send(task)
