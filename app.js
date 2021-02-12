@@ -1,9 +1,10 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 5000
 const klawSync = require('klaw-sync');
 const path = require('path')
+const {Sequelize, sequelize} = require('./db')
 
 async function useControllers() {
     const paths = klawSync(`${__dirname}/routes`, {nodir: true});
@@ -44,8 +45,22 @@ tasksList = [
     }
 ]
 
+
 useControllers()
 
-app.listen(PORT, () => {
-    console.log(`app started on port ${PORT}`)
-})
+
+// Sergey said this is not a good practice, but ok for now
+const start = async() => {
+    try{
+     await sequelize.sync()
+     app.listen(PORT, () => {console.log(`app started on port ${PORT}`)})
+    }catch(e){
+        console.log(e.message);
+    }
+}
+ 
+start()
+
+// app.listen(PORT, () => {
+//     console.log(`app started on port ${PORT}`)
+// })
