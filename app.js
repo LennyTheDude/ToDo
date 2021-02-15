@@ -52,8 +52,9 @@ useControllers()
 // Sergey said this is not a good practice, but ok for now
 const start = async() => {
     try{
-     await sequelize.sync()
-     app.listen(PORT, () => {console.log(`app started on port ${PORT}`)})
+     await sequelize.sync().then(() => {
+        app.listen(PORT, () => {console.log(`app started on port ${PORT}`)})
+     })
     }catch(e){
         console.log(e.message);
     }

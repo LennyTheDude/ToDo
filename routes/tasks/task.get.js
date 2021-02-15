@@ -1,13 +1,11 @@
 const express = require('express')
 const tasksRouter = express.Router()
+const models = require('../../models')
 
-tasksRouter.get('/tasks/:id', (req, res) => {
-    const task = tasksList[req.params.id]
-    if (task) {
-        res.status(200).send(task)
-    } else {
-        res.status(404).send('No such task in the list')
-    }
+tasksRouter.get('/tasks/:id?', (req, res) => {
+    const taskId = req.query.id;
+    models.Task.findOne({where: {id: taskId}})
+    .then(tasks=>{res.send(tasks)});
 })
 
 module.exports = tasksRouter

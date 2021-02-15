@@ -1,15 +1,11 @@
 const express = require('express')
 const tasksRouter = express.Router()
+const models = require('../../models')
 
-tasksRouter.delete('/', (req, res) => {
+tasksRouter.delete('/tasks/:id?', (req, res) => {
     const taskId = req.query.id;
-    const task = tasksList[taskId];
-    if (task) {
-        tasksList.splice(taskId, 1)
-        res.status(205).send(tasksList)
-    } else {
-        res.status(404).send('No task with such ID found in the list')
-    }
+    models.Task.destroy({where: {id: taskId}})
+    .then(res.send('Task deleted!'));
 })
 
 module.exports = tasksRouter

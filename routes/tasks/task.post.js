@@ -1,16 +1,13 @@
 const express = require('express')
 const tasksRouter = express.Router()
+const models = require('../../models')
 
-tasksRouter.post('/tasks', (req, res) => {
+
+tasksRouter.post('/tasks/', (req, res) => {
     const task = req.query;
-    console.log(task);
-    if (task.id && task.name) {
-        task.isDone = false
-        tasksList.push(task)
-        res.status(201).send(tasksList)
-    } else {
-        res.status(404).send('Unable to add task to the list')
-    }
+    console.log(models.Task);
+    models.Task.create({taskName: task.taskName, isDone: false})
+    res.status(200).send();
 })
 
 module.exports = tasksRouter
