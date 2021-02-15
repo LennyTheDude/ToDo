@@ -1,13 +1,16 @@
 const express = require('express')
-const tasksRouter = express.Router()
-const models = require('../../models')
+const router = express.Router()
+const Task = require('../../models').Task
 
-
-tasksRouter.post('/tasks/', (req, res) => {
-    const task = req.query;
-    console.log(models.Task);
-    models.Task.create({taskName: task.taskName, isDone: false})
-    res.status(200).send();
+router.post('/task/', async (req, res) => {
+    const task = req.body;
+    console.log(task);
+    if (task.taskName) {
+        const newTask = await Task.create({taskName: task.taskName, isDone: false})
+        res.status(200).send(newTask)
+    } else {
+        res.status(404).send('Can\'t create an empty task!')
+    }
 })
 
-module.exports = tasksRouter
+module.exports = router

@@ -1,11 +1,16 @@
 const express = require('express')
-const tasksRouter = express.Router()
-const models = require('../../models')
+const router = express.Router()
+const Task = require('../../models').Task
 
-tasksRouter.delete('/tasks/:id?', (req, res) => {
-    const taskId = req.query.id;
-    models.Task.destroy({where: {id: taskId}})
-    .then(res.send('Task deleted!'));
+router.delete('/task/', async (req, res) => {
+    const taskId = req.body.taskId;
+    if (taskId) {
+        const taskToDelete = await Task.destroy({where: {id: taskId}})
+        const tasks = await Task.findAll();    
+        res.status(200).send(tasks)
+    } else {
+        res.status(404).send('No such task found')
+    }
 })
 
-module.exports = tasksRouter
+module.exports = router

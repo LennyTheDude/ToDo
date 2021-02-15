@@ -1,9 +1,10 @@
 const express = require('express')
-const tasksRouter = express.Router()
-const models = require('../../models')
+const router = express.Router()
+const Task = require('../../models').Task
 
-tasksRouter.get('/', (req, res) => {
-    models.Task.findAll().then(tasks=>{res.send(tasks)})
+router.get('/tasks/', async (req, res) => {
+    const tasks = await Task.findAll();
+    res.send(tasks);
 })
 
-module.exports = tasksRouter
+module.exports = router

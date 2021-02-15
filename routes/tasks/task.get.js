@@ -1,11 +1,15 @@
 const express = require('express')
-const tasksRouter = express.Router()
-const models = require('../../models')
+const router = express.Router()
+const Task = require('../../models').Task
 
-tasksRouter.get('/tasks/:id?', (req, res) => {
-    const taskId = req.query.id;
-    models.Task.findOne({where: {id: taskId}})
-    .then(tasks=>{res.send(tasks)});
+router.get('/task/', async (req, res) => {
+    const taskId = req.body.taskId;
+    const wantedTask = await Task.findOne({where: {id: taskId}});
+    if (wantedTask) {
+        res.status(200).send(wantedTask)
+    } else {
+        res.status(404).send('Not found')
+    }
 })
 
-module.exports = tasksRouter
+module.exports = router

@@ -1,14 +1,27 @@
 const express = require('express')
-const tasksRouter = express.Router()
-const models = require('../../models')
+const router = express.Router()
+const Task = require('../../models').Task
 
-tasksRouter.put('/tasks/:id?:name?:isDone?', (req, res) => {
-    const changedTask = req.query;
-    console.log(changedTask);
-    const task = models.Task.update({ taskName: changedTask.name, isDone: changedTask.isDone }, {
-        where: {id: changedTask.taskId}
-    })
-    res.send('task updated!');
+router.put('/task/', async (req, res) => {
+    const updateTask = req.body;
+    if (!updateTask.taskId) {
+        res.send("not found");
+    }
+
+    if (updateTask.name) {
+        const editTask = await Task.update(
+            { taskName: updateTask.name}, 
+            { where: {id: updateTask.taskId}}
+        )
+    } else {
+        const editTask = await Task.update(
+            { isDone: updateTask.isDone}, 
+            { where: {id: updateTask.taskId}}
+        )
+    }
+
+    const tasks = await Task.findAll();    
+    res.status(200).send(tasks)
 })
 
-module.exports = tasksRouter
+module.exports = router
