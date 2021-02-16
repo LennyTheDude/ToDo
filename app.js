@@ -23,4 +23,7 @@ async function useControllers() {
 
 useControllers()
 
+app.use(express.static("public"));
+
+
 app.listen(PORT, () => {console.log(`app started on port ${PORT}`)})
