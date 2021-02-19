@@ -7,7 +7,9 @@ const path = require('path')
 const {Sequelize, sequelize} = require('./models/index')
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json({ extended: false });
+const cors = require('cors');
 
+app.use(cors());
 app.use(jsonParser);
 
 async function useControllers() {
