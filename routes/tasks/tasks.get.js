@@ -6,7 +6,7 @@ router.get('/tasks/', async (req, res) => {
     console.log(req.body);
     const tasks = await Task.findAll({
         order: [
-            ['createdAt', 'ASC']
+            ['createdAt', 'DESC']
         ]
     });
     res.send(tasks);

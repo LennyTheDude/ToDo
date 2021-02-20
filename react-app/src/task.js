@@ -18,12 +18,18 @@ const Task = (props) => {
         isDone = newTask.data.isDone
         event.target.checked = isDone
     }
+
+    const deleteHandler = async (event) => {
+        console.log(task.id)
+    }
+
     return (
         <li key={task.id}>
             <input type="checkbox" checked={isDone} id={task.id} onChange={onChangeHandler} />
             <span>
                 {task.taskName}
             </span>
+            <button onClick={deleteHandler}>delete</button>
         </li>
     );
 }
