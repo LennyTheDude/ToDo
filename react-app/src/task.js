@@ -3,32 +3,24 @@ import api from './utils/api';
 
 const Task = (props) => {
     let [task, setTask] = useState({props})
+    let [isDone, setIsDone] = useState(task.isDone)
 
     useEffect(() => {
+        setIsDone(props.isDone)
         setTask(props);
     }, [])
 
-    let [isDone, setIsDone] = useState()
-
-    useEffect(() => {
-        setIsDone(task.isDone);
-    })
-    
-    
-
-
     const onChangeHandler = async (event) => {
-        const query = {"taskId": `${task.id}`, "isDone": `${!task.isDone}`}
+        const query = {"taskId": `${task.id}`, "isDone": `${!isDone}`}
         const newTask = await api.put(
             '/task/', query
         );
-        isDone = newTask.isDone
+        isDone = newTask.data.isDone
         event.target.checked = !event.target.checked
     }
-
     return (
         <li key={task.id}>
-            <input type="checkbox" checked={isDone} id={task.id} onChange={onChangeHandler} />
+            <input type="checkbox" checked={task.isDone} id={task.id} onChange={onChangeHandler} />
             <span>
                 {task.taskName}
             </span>
