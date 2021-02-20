@@ -19,16 +19,18 @@ const App = () => {
 		);
     	setTasks(result.data);
   	}, [])
+
 	const forceUpdate = useForceUpdate();
+
 	const handleKeyPress = async (event) => {
-		if(event.key === 'Enter'){
-			const query = {"taskName": `${event.target.value}`}
+		let input = event.target.value
+		if(event.key === 'Enter' && input){
+			const query = {"taskName": `${input}`}
 			const result = await api.post(
 				'/task/', query
 			);
-			event.target.value = ''
+			input = ''
 			tasks.unshift(result.data);
-			console.log(tasks);
 			forceUpdate();
 		}
 	}
