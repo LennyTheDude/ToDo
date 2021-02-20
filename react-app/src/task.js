@@ -16,11 +16,11 @@ const Task = (props) => {
             '/task/', query
         );
         isDone = newTask.data.isDone
-        event.target.checked = !event.target.checked
+        event.target.checked = isDone
     }
     return (
         <li key={task.id}>
-            <input type="checkbox" checked={task.isDone} id={task.id} onChange={onChangeHandler} />
+            <input type="checkbox" checked={isDone} id={task.id} onChange={onChangeHandler} />
             <span>
                 {task.taskName}
             </span>
