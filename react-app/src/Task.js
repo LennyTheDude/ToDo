@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from './utils/api';
 
 const Task = (props) => {
-    let [task, setTask] = useState({props})
+    const [task, setTask] = useState({props})
     let [isDone, setIsDone] = useState(task.isDone)
 
     useEffect(() => {
@@ -11,7 +11,7 @@ const Task = (props) => {
     }, [])
 
     const onChangeHandler = async (event) => {
-        const query = {"taskId": `${task.id}`, "isDone": `${!isDone}`}
+        const query = {taskId: `${task.id}`, "isDone": `${!isDone}`}
         const newTask = await api.put(
             '/task/', query
         );
@@ -20,7 +20,7 @@ const Task = (props) => {
     }
 
     const deleteHandler = async (event) => {
-        console.log(task.id)
+        console.log(event.target.parentNode)
     }
 
     return (
