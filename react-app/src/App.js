@@ -29,7 +29,7 @@ const App = () => {
 			const result = await api.post(
 				'/task/', query
 			);
-			input = ''
+			event.target.value = ''
 			tasks.unshift(result.data);
 			forceUpdate();
 		}
