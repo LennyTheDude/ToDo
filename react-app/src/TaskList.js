@@ -22,9 +22,17 @@ const TaskList = () => {
 
 	const forceUpdate = useForceUpdate();
 
-	const handleAddTask = (task) => {
+	const addTask = (task) => {
 		tasks.unshift(task);
+	}
 
+	const deleteTask = async (id) => {
+		const query = {"taskId": `${id}`}
+		const result = await api.delete(
+			'/task/', {data: query}
+		);
+		const modifiedTasks = tasks.filter(task => task.id !== id )
+		setTasks(modifiedTasks)
 	}
 
     const handleKeyPress = async (event) => {
@@ -45,7 +53,11 @@ const TaskList = () => {
 			<InputField onKeyPress={handleKeyPress}/>
             <ul>
 				{tasks.map(task => (
-					<Task key={task.id} handleAddTask={handleAddTask} {...task}/>
+					<Task
+						key={task.id}
+						addTask={addTask}
+						deleteTask={deleteTask}
+						{...task}/>
 				))}
 			</ul>
 		</div>

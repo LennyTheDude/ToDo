@@ -19,17 +19,24 @@ const Task = (props) => {
         event.target.checked = isDone
     }
 
-    const deleteHandler = async (event) => {
-        console.log(event.target.parentNode)
+    const deleteHandler = async () => {
+        props.deleteTask(props.id)
     }
 
     return (
         <li key={task.id}>
-            <input type="checkbox" checked={isDone} id={task.id} onChange={onChangeHandler} />
+            <input
+                type="checkbox"
+                checked={isDone}
+                id={task.id}
+                onChange={onChangeHandler}
+            />
             <span>
                 {task.taskName}
             </span>
-            <button onClick={deleteHandler}>delete</button>
+            <button onClick={deleteHandler}>
+                delete
+            </button>
         </li>
     );
 }
