@@ -9,8 +9,8 @@ const useForceUpdate = () => {
 }
 
 const TaskList = () => {
-	let [tasks, setTasks] = useState([])
-	let [orderBy, setOrderBy] = useState("DESC")
+	const [tasks, setTasks] = useState([])
+	const [orderBy, setOrderBy] = useState('DESC')
 
 	useEffect( async () => {
 		const query = {"orderBy": `${orderBy}`}
@@ -27,9 +27,8 @@ const TaskList = () => {
 	}
 
 	const deleteTask = async (id) => {
-		const query = {"taskId": `${id}`}
-		const result = await api.delete(
-			'/task/', {data: query}
+		await api.delete(
+			'/task/', {data: {taskId: id}}
 		);
 		const modifiedTasks = tasks.filter(task => task.id !== id )
 		setTasks(modifiedTasks)
@@ -38,12 +37,14 @@ const TaskList = () => {
     const handleKeyPress = async (event) => {
 		let input = event.target.value
 		if(event.key === 'Enter' && input){
-			const query = {"taskName": `${input}`}
 			const result = await api.post(
-				'/task/', query
+				'/task/', {"taskName": `${input}`}
 			);
-			event.target.value = ''
-			tasks.unshift(result.data);
+			event.target.value = '';
+			const newTasks = tasks;
+			newTasks.unshift(result.data);
+			console.log(newTasks);
+			setTasks(newTasks);
 			forceUpdate();
 		}
 	}

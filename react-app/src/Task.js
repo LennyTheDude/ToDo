@@ -19,7 +19,7 @@ const Task = (props) => {
         event.target.checked = isDone
     }
 
-    const deleteHandler = async () => {
+    const deleteHandler = () => {
         props.deleteTask(props.id)
     }
 
