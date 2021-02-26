@@ -63,13 +63,16 @@ const TaskList = () => {
         const newTask = await api.put(
             '/task/', {taskId: id, isDone: !isDone}
         );
-		const modifiedTasks = tasks.map(task => {
-			if (task.id !== id) {
-				return task
-			} else {
-				return newTask.data
-			}
-		})
+		let modifiedTasks = [];
+		if (filterBy === 'all') {
+			modifiedTasks = tasks.map(task => {
+				return task.id !== id ? task : newTask.data
+			})
+		} else {
+			modifiedTasks = tasks.filter(task => (
+				task.id !== id
+			))
+		}
 		setTasks(modifiedTasks)
 	}
 
