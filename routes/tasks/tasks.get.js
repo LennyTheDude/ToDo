@@ -6,9 +6,9 @@ router.get('/tasks/', async (req, res) => {
  
     const params = {}
  
-    if (req.query.show === 'done') {
+    if (req.query.filterBy === 'done') {
         params.where = { isDone: true }
-    } else if (req.query.show === 'undone') {
+    } else if (req.query.filterBy === 'undone') {
         params.where = { isDone: false }
     }
 

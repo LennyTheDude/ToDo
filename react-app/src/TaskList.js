@@ -12,14 +12,14 @@ const useForceUpdate = () => {
 const TaskList = () => {
 	const [tasks, setTasks] = useState([])
 	const [orderBy, setOrderBy] = useState('DESC')
-	const [show, setShow] = useState('all')
+	const [filterBy, setFilterBy] = useState('all')
 
 	useEffect( async () => {
 		const result = await api.get(
-			'/tasks/', {params: {orderBy: orderBy}}
+			'/tasks/', {params: {orderBy: orderBy, filterBy: filterBy}}
 		);
     	setTasks(result.data);
-  	}, [orderBy])
+  	}, [orderBy, filterBy])
 
 	const forceUpdate = useForceUpdate();
 
@@ -55,6 +55,10 @@ const TaskList = () => {
 		setOrderBy(() => order);
 	}
 
+	const changeFilter = async (filter) => {
+		setFilterBy(() => filter);
+	}
+
 	const switchTaskStatus = async (id, isDone) => {
         const newTask = await api.put(
             '/task/', {taskId: id, isDone: !isDone}
@@ -71,7 +75,9 @@ const TaskList = () => {
 
   	return (
 		<div className="taskList">
-			<OutputParams changeOrder={changeOrder} />
+			<OutputParams
+				changeOrder={changeOrder}
+				changeFilter={changeFilter} />
 			<InputField handleKeyPress={handleKeyPress}/>
             <ul>
 				{tasks.map(task => (
