@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 const OutputParams = (props) => {
     const handleChangeOrder = (event) => {
-        console.log(event.target.id);
         props.changeOrder(event.target.id)
     }
     

@@ -10,13 +10,9 @@ const Task = (props) => {
         setTask(props);
     }, [])
 
-    const onChangeHandler = async (event) => {
-        const query = {taskId: `${task.id}`, "isDone": `${!isDone}`}
-        const newTask = await api.put(
-            '/task/', query
-        );
-        isDone = newTask.data.isDone
-        event.target.checked = isDone
+    const changeHandler = () => {
+        setIsDone(!isDone)
+        props.switchTaskStatus(task.id, isDone)
     }
 
     const deleteHandler = () => {
@@ -29,7 +25,7 @@ const Task = (props) => {
                 type="checkbox"
                 checked={isDone}
                 id={task.id}
-                onChange={onChangeHandler}
+                onChange={changeHandler}
             />
             <span>
                 {task.taskName}

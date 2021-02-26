@@ -55,15 +55,30 @@ const TaskList = () => {
 		setOrderBy(() => order);
 	}
 
+	const switchTaskStatus = async (id, isDone) => {
+        const newTask = await api.put(
+            '/task/', {taskId: id, isDone: !isDone}
+        );
+		const modifiedTasks = tasks.map(task => {
+			if (task.id !== id) {
+				return task
+			} else {
+				return newTask.data
+			}
+		})
+		setTasks(modifiedTasks)
+	}
+
   	return (
 		<div className="taskList">
 			<OutputParams changeOrder={changeOrder} />
-			<InputField onKeyPress={handleKeyPress}/>
+			<InputField handleKeyPress={handleKeyPress}/>
             <ul>
 				{tasks.map(task => (
 					<Task
 						key={task.id}
 						deleteTask={deleteTask}
+						switchTaskStatus={switchTaskStatus}
 						{...task}/>
 				))}
 			</ul>
