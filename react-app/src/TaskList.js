@@ -43,11 +43,13 @@ const TaskList = () => {
 				'/task/', {"taskName": `${input}`}
 			);
 			event.target.value = '';
-			const newTasks = tasks;
 			// console.log(result); // if result.status === 200 => 
-			orderBy === 'DESC' ? tasks.unshift(result.data) : tasks.push(result.data)
-			setTasks(newTasks);
-			forceUpdate();
+			if (filterBy === 'all' || filterBy === 'undone') {
+				const newTasks = tasks;
+				orderBy === 'DESC' ? tasks.unshift(result.data) : tasks.push(result.data)
+				setTasks(newTasks);
+				forceUpdate();	
+			}
 		}
 	}
 
