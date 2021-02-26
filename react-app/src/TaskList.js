@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from './utils/api';
 import Task from './Task';
 import InputField from './InputField';
+import OutputParams from './OutputParams';
 
 const useForceUpdate = () => {
     const [value, setValue] = useState(0); // integer state
@@ -11,20 +12,21 @@ const useForceUpdate = () => {
 const TaskList = () => {
 	const [tasks, setTasks] = useState([])
 	const [orderBy, setOrderBy] = useState('DESC')
+	const [show, setShow] = useState('all')
 
 	useEffect( async () => {
-		const query = {"orderBy": `${orderBy}`}
 		const result = await api.get(
-			'/tasks/', query
+			'/tasks/', {params: {orderBy: orderBy}}
 		);
     	setTasks(result.data);
-  	}, [])
+  	}, [orderBy])
 
 	const forceUpdate = useForceUpdate();
 
-	const addTask = (task) => {
-		tasks.unshift(task);
-	}
+	// const addTask = (task) => {
+	// 	setTasks(tasks.push(task))
+	// 	// orderBy === 'DESC' ? tasks.push(task) : tasks.push(task)
+	// }
 
 	const deleteTask = async (id) => {
 		await api.delete(
@@ -42,21 +44,25 @@ const TaskList = () => {
 			);
 			event.target.value = '';
 			const newTasks = tasks;
-			newTasks.unshift(result.data);
-			console.log(newTasks);
+			// console.log(result); // if result.status === 200 => 
+			orderBy === 'DESC' ? tasks.unshift(result.data) : tasks.push(result.data)
 			setTasks(newTasks);
 			forceUpdate();
 		}
 	}
 
+	const changeOrder = async (order) => {
+		setOrderBy(() => order);
+	}
+
   	return (
 		<div className="taskList">
+			<OutputParams changeOrder={changeOrder} />
 			<InputField onKeyPress={handleKeyPress}/>
             <ul>
 				{tasks.map(task => (
 					<Task
 						key={task.id}
-						addTask={addTask}
 						deleteTask={deleteTask}
 						{...task}/>
 				))}
