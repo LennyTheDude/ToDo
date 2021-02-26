@@ -27,7 +27,7 @@ const Task = (props) => {
                 id={task.id}
                 onChange={changeHandler}
             />
-            <span>
+            <span className={isDone ? 'task done-task': 'task'}>
                 {task.taskName}
             </span>
             <button onClick={deleteHandler}>
