@@ -78,6 +78,16 @@ const TaskList = () => {
 		setTasks(modifiedTasks)
 	}
 
+	const renameTask = async (id, name) => {
+		const newTask = await api.put(
+            '/task/', {taskId: id, name: name}
+        );
+		const modifiedTasks = tasks.map(task => {
+			return task.id !== id ? task : newTask.data
+		})
+		setTasks(modifiedTasks);
+	}
+	
   	return (
 		<div className="taskList">
 			<OutputParams
@@ -90,6 +100,7 @@ const TaskList = () => {
 						key={task.id}
 						deleteTask={deleteTask}
 						switchTaskStatus={switchTaskStatus}
+						renameTask={renameTask}
 						{...task}/>
 				))}
 			</ul>
