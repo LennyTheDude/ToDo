@@ -49,7 +49,7 @@ const Task = (props) => {
     }
 
     return (
-        <ListItem key={task.id} role={undefined} dense button onClick={changeHandler}>
+        <ListItem key={task.id} role={undefined} dense button /*onClick={doubleClickHandler}*/>
             <ListItemIcon>
                 <Checkbox
                     edge="start"
@@ -57,19 +57,15 @@ const Task = (props) => {
                     tabIndex={-1}
                     disableRipple
                     inputProps={{ 'aria-labelledby': `checkbox-list-label-${task.id}` }}
+                    onChange={changeHandler}
                 />
             </ListItemIcon>
             <ListItemText id={`checkbox-list-label-${task.id}`} primary={task.taskName} />
-            {/* <ListItemSecondaryAction>
-                <IconButton edge="start" aria-label="edit">
-                    <EditIcon />
-                </IconButton>
-            </ListItemSecondaryAction>
             <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete-forever">
+                <IconButton edge="end" aria-label="delete-forever" onClick={deleteHandler}>
                     <DeleteForeverIcon />
                 </IconButton>
-            </ListItemSecondaryAction> */}
+            </ListItemSecondaryAction>
         </ListItem>
         // <li key={task.id}>
         //     <input
