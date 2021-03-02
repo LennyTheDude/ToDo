@@ -3,17 +3,27 @@ import api from './utils/api';
 import Task from './Task';
 import InputField from './InputField';
 import OutputParams from './OutputParams';
+import List from '@material-ui/core/List';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useForceUpdate = () => {
     const [value, setValue] = useState(0); // integer state
     return () => setValue(value => value + 1); // update the state to force render
 }
+const useStyles = makeStyles((theme) => ({
+	root: {
+	  width: '100%',
+	  backgroundColor: theme.palette.background.paper,
+	},
+}));
 
 const TaskList = () => {
 	const [tasks, setTasks] = useState([])
 	const [orderBy, setOrderBy] = useState('DESC')
 	const [filterBy, setFilterBy] = useState('all')
-
+	
+	const classes = useStyles();
+	
 	useEffect( async () => {
 		const result = await api.get(
 			'/tasks/', {params: {orderBy: orderBy, filterBy: filterBy}}
@@ -94,7 +104,7 @@ const TaskList = () => {
 				changeOrder={changeOrder}
 				changeFilter={changeFilter} />
 			<InputField handleKeyPress={handleKeyPress} orderBy={orderBy} filterBy={filterBy} />
-            <ul>
+            <List className={classes.root}>
 				{tasks.map(task => (
 					<Task
 						key={task.id}
@@ -103,7 +113,7 @@ const TaskList = () => {
 						renameTask={renameTask}
 						{...task}/>
 				))}
-			</ul>
+			</List>
 		</div>
   	);
 }
