@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import {TextField} from '@material-ui/core'
 
 const InputField = (props) => {
     return (
-        <input type="text" id="newTask" onKeyPress={props.handleKeyPress}/>
+        <TextField label="Add a new task" variant="outlined" id="newTask" onKeyPress={props.handleKeyPress}/>
     );
 }
 
