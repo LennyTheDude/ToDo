@@ -5,7 +5,6 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 const Task = (props) => {
@@ -49,7 +48,7 @@ const Task = (props) => {
     }
 
     return (
-        <ListItem key={task.id} role={undefined} dense button /*onClick={doubleClickHandler}*/>
+        <ListItem key={task.id} role={undefined} dense >
             <ListItemIcon>
                 <Checkbox
                     edge="start"
@@ -60,38 +59,22 @@ const Task = (props) => {
                     onChange={changeHandler}
                 />
             </ListItemIcon>
-            <ListItemText id={`checkbox-list-label-${task.id}`} primary={task.taskName} />
+            {editing === '' ?
+                <ListItemText id={`checkbox-list-label-${task.id}`} primary={taskName} onClick={doubleClickHandler} /> :
+                <input type='text'
+                    id='edit-task'
+                    onBlur={blurHandler}
+                    onKeyPress={keyPressHandler}
+                    autoFocus={true}
+                    defaultValue={editing}>
+                </input>
+            }
             <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="delete-forever" onClick={deleteHandler}>
                     <DeleteForeverIcon />
                 </IconButton>
             </ListItemSecondaryAction>
         </ListItem>
-        // <li key={task.id}>
-        //     <input
-        //         type="checkbox"
-        //         checked={isDone}
-        //         id={task.id}
-        //         onChange={changeHandler}
-        //     />
-        //         { editing === '' ? 
-        //             <span className={isDone ? 'task done-task': 'task'}
-        //                 onDoubleClick={doubleClickHandler} >
-        //                 {taskName}
-        //             </span> :
-        //             <input type='text'
-        //                 id='edit-task'
-        //                 onBlur={blurHandler}
-        //                 onKeyPress={keyPressHandler}
-        //                 autoFocus={true}
-        //                 defaultValue={editing}>
-        //             </input>
-                    
-        //         }
-        //     <button onClick={deleteHandler}>
-        //         delete
-        //     </button>
-        // </li>
     );
 }
 
