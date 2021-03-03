@@ -21,17 +21,30 @@ const TaskList = () => {
 	const [tasks, setTasks] = useState([])
 	const [orderBy, setOrderBy] = useState('DESC')
 	const [filterBy, setFilterBy] = useState('all')
-	
+	const [totalPages, setTotalPages] = useState()
+	const [currentPage, setCurrentPage] = useState(1)
+
 	const classes = useStyles();
 	
 	useEffect( async () => {
-		const result = await api.get(
-			'/tasks/', {params: {orderBy: orderBy, filterBy: filterBy}}
-		);
-    	setTasks(result.data);
+		getTasks();
   	}, [orderBy, filterBy])
 
 	const forceUpdate = useForceUpdate();
+
+	const getTasks = async () => {
+		const result = await api.get(
+			'/tasks/', {params: {
+				orderBy: orderBy,
+				filterBy: filterBy,
+				pageNumber: currentPage,
+				tasksPerPage: 5
+			}}
+		);
+    	setTasks(result.data.rows);
+		setTotalPages(result.data.count / 5);
+		console.log(result.data.count / 5);
+	}
 
 	const deleteTask = async (id) => {
 		await api.delete(

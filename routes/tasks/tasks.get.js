@@ -14,7 +14,10 @@ router.get('/tasks/', async (req, res) => {
 
     
     params.order = [['createdAt', req.query.orderBy ? req.query.orderBy : 'DESC']]
-    const tasks = await Task.findAll(params);
+    
+    params.offset = req.query.tasksPerPage * (req.query.pageNumber - 1);
+    params.limit = req.query.tasksPerPage;
+    const tasks = await Task.findAndCountAll(params);
  
     res.send(tasks);
 })
