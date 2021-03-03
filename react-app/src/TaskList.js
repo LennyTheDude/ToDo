@@ -102,7 +102,11 @@ const TaskList = () => {
 		<div className="taskList">
 			<OutputParams
 				changeOrder={changeOrder}
-				changeFilter={changeFilter} />
+				changeFilter={changeFilter} 
+				handleKeyPress={handleKeyPress}
+				orderBy={orderBy}
+				filterBy={filterBy} 
+			/>
 			<InputField handleKeyPress={handleKeyPress} orderBy={orderBy} filterBy={filterBy} />
             <List className={classes.root}>
 				{tasks.map(task => (

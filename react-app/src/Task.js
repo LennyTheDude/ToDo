@@ -27,7 +27,7 @@ const Task = (props) => {
         props.deleteTask(props.id)
     }
 
-    const doubleClickHandler = (event) => {
+    const clickHandler = (event) => {
         setEditing(event.target.innerHTML);
     }
 
@@ -60,7 +60,7 @@ const Task = (props) => {
                 />
             </ListItemIcon>
             {editing === '' ?
-                <ListItemText id={`checkbox-list-label-${task.id}`} primary={taskName} onClick={doubleClickHandler} /> :
+                <ListItemText id={`checkbox-list-label-${task.id}`} primary={taskName} onClick={clickHandler} /> :
                 <input type='text'
                     id='edit-task'
                     onBlur={blurHandler}

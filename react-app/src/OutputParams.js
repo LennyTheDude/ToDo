@@ -3,10 +3,12 @@ import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Button from '@material-ui/core/Button'
 import VerticalAlignBottomIcon from '@material-ui/icons/VerticalAlignBottom';
 import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop';
+import {TextField} from '@material-ui/core'
 
 const OutputParams = (props) => {
     const handleChangeOrder = (event) => {
         props.changeOrder(event.target.type === "button" ? event.target.id : event.target.parentNode.id)
+        console.log(event.target.nodeName);
     }
     
     const handleChangeFilter = (event) => {
@@ -14,11 +16,15 @@ const OutputParams = (props) => {
     }
 
     return (
-        <div>
+        <div id="filters">
             <div>
                 <ButtonGroup color="primary" aria-label="outlined primary button group">
-                    <Button id="DESC" onClick={handleChangeOrder} endIcon={<VerticalAlignTopIcon />}></Button>
-                    <Button id="ASC" onClick={handleChangeOrder} startIcon={<VerticalAlignBottomIcon />}></Button>
+                    <Button id="DESC" onClick={handleChangeOrder} >
+                        <VerticalAlignTopIcon />
+                    </Button>
+                    <Button id="ASC" onClick={handleChangeOrder} >
+                        <VerticalAlignBottomIcon />
+                    </Button>
                 </ButtonGroup>
             </div>
             <div>

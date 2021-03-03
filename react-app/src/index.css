@@ -24,3 +24,9 @@ li {
 .done-task {
   text-decoration: line-through;
 }
+
+#filters {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}

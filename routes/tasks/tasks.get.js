@@ -12,10 +12,8 @@ router.get('/tasks/', async (req, res) => {
         params.where = { isDone: false }
     }
 
-    if (req.query.orderBy) {
-        params.order = [['createdAt', req.query.orderBy]]
-    }
-
+    
+    params.order = [['createdAt', req.query.orderBy ? req.query.orderBy : 'DESC']]
     const tasks = await Task.findAll(params);
  
     res.send(tasks);

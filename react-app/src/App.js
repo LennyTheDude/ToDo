@@ -8,7 +8,9 @@ const App = () => {
 		<div className="App">
 			<Paper elevation={3} children={
 				<div>
-					<h1>Your To-Do List</h1>
+					<div id="heading">
+						<h1>Your To-Do List</h1>
+					</div>
 					<TaskList />
 				</div>
 			} />
