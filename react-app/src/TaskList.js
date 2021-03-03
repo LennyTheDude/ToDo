@@ -5,6 +5,7 @@ import InputField from './InputField';
 import OutputParams from './OutputParams';
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/core/styles';
+import PageSelector from './PageSelector'
 
 const useForceUpdate = () => {
     const [value, setValue] = useState(0); // integer state
@@ -21,14 +22,14 @@ const TaskList = () => {
 	const [tasks, setTasks] = useState([])
 	const [orderBy, setOrderBy] = useState('DESC')
 	const [filterBy, setFilterBy] = useState('all')
-	const [totalPages, setTotalPages] = useState()
+	const [totalPages, setTotalPages] = useState(1)
 	const [currentPage, setCurrentPage] = useState(1)
 
 	const classes = useStyles();
 	
 	useEffect( async () => {
 		getTasks();
-  	}, [orderBy, filterBy])
+  	}, [orderBy, filterBy, currentPage])
 
 	const forceUpdate = useForceUpdate();
 
@@ -43,7 +44,6 @@ const TaskList = () => {
 		);
     	setTasks(result.data.rows);
 		setTotalPages(result.data.count / 5);
-		console.log(result.data.count / 5);
 	}
 
 	const deleteTask = async (id) => {
@@ -106,6 +106,10 @@ const TaskList = () => {
 		setTasks(modifiedTasks);
 	}
 	
+	const changePage = (page) => {
+		setCurrentPage(page)
+	}
+
   	return (
 		<div className="taskList">
 			<OutputParams
@@ -126,6 +130,7 @@ const TaskList = () => {
 						{...task}/>
 				))}
 			</List>
+			<PageSelector totalPages={totalPages} changePage={changePage} />
 		</div>
   	);
 }
