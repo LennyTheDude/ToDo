@@ -17,16 +17,12 @@ code {
   margin: 0 auto;
 }
 
-li {
-  list-style-type: none;
-}
-
-.done-task {
-  text-decoration: line-through;
-}
-
 #filters {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   margin-bottom: 10px;
+}
+
+.task-done {
+  background-color: #c3e6cb;
 }
