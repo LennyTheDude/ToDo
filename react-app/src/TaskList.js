@@ -33,11 +33,6 @@ const TaskList = () => {
 
 	const forceUpdate = useForceUpdate();
 
-	// const addTask = (task) => {
-	// 	setTasks(tasks.push(task))
-	// 	// orderBy === 'DESC' ? tasks.push(task) : tasks.push(task)
-	// }
-
 	const deleteTask = async (id) => {
 		await api.delete(
 			'/task/', {data: {taskId: id}}
