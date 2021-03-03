@@ -43,16 +43,15 @@ const TaskList = () => {
 			}}
 		);
     	setTasks(result.data.rows);
-		setTotalPages(result.data.count / 5);
+		setTotalPages(Math.ceil(result.data.count / 5));
 	}
 
 	const deleteTask = async (id) => {
 		await api.delete(
 			'/task/', {data: {taskId: id}}
 		);
-		const modifiedTasks = tasks.filter(task => task.id !== id )
-		setTasks(modifiedTasks)
-	}
+		getTasks()
+		}
 
     const handleKeyPress = async (event) => {
 		let input = event.target.value
@@ -62,38 +61,34 @@ const TaskList = () => {
 			);
 			event.target.value = '';
 			// console.log(result); // if result.status === 200 => 
-			if (filterBy === 'all' || filterBy === 'undone') {
-				const newTasks = tasks;
-				orderBy === 'DESC' ? tasks.unshift(result.data) : tasks.push(result.data)
-				setTasks(newTasks);
-				forceUpdate();	
+			if ((filterBy === 'all' || filterBy === 'undone') && orderBy === 'DESC') {
+				getTasks()
 			}
 		}
 	}
 
 	const changeOrder = async (order) => {
 		setOrderBy(() => order);
+		setCurrentPage(1)
 	}
 
 	const changeFilter = async (filter) => {
 		setFilterBy(() => filter);
+		setCurrentPage(1)
 	}
 
 	const switchTaskStatus = async (id, isDone) => {
         const newTask = await api.put(
             '/task/', {taskId: id, isDone: !isDone}
         );
-		let modifiedTasks = [];
 		if (filterBy === 'all') {
-			modifiedTasks = tasks.map(task => {
+			const modifiedTasks = tasks.map(task => {
 				return task.id !== id ? task : newTask.data
 			})
+			setTasks(modifiedTasks)
 		} else {
-			modifiedTasks = tasks.filter(task => (
-				task.id !== id
-			))
+			getTasks();
 		}
-		setTasks(modifiedTasks)
 	}
 
 	const renameTask = async (id, name) => {

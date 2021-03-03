@@ -10,8 +10,8 @@ const PageSelector = (props) => {
     
     const buttons = [];
     
-    for (let i = 1; i <= props.totalPages + 1; i++) {
-        buttons.push(<Button id={i} onClick={switchPage}>{i}</Button>);
+    for (let i = 1; i <= props.totalPages; i++) {
+        buttons.push(<Button id={i} key={i} onClick={switchPage}>{i}</Button>);
         
     }
 
