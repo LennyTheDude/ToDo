@@ -7,22 +7,22 @@ import {TextField} from '@material-ui/core'
 
 const OutputParams = (props) => {
     const handleChangeOrder = (event) => {
-        props.changeOrder(event.target.type === "button" ? event.target.id : event.target.parentNode.id)
-        console.log(event.target.nodeName);
+        props.changeOrder(event.currentTarget.id)
+        console.log(event.currentTarget);
     }
     
     const handleChangeFilter = (event) => {
-        props.changeFilter(event.target.type === "button" ? event.target.id : event.target.parentNode.id);
+        props.changeFilter(event.currentTarget.id);
     }
 
     return (
         <div id="filters">
             <div>
                 <ButtonGroup color="primary" aria-label="outlined primary button group">
-                    <Button id="DESC" onClick={handleChangeOrder} >
+                    <Button id="ASC" onClick={handleChangeOrder} >
                         <VerticalAlignTopIcon />
                     </Button>
-                    <Button id="ASC" onClick={handleChangeOrder} >
+                    <Button id="DESC" onClick={handleChangeOrder} >
                         <VerticalAlignBottomIcon />
                     </Button>
                 </ButtonGroup>
