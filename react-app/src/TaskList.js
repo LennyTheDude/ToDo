@@ -125,7 +125,7 @@ const TaskList = () => {
 						{...task}/>
 				))}
 			</List>
-			<PageSelector totalPages={totalPages} changePage={changePage} />
+			<PageSelector totalPages={totalPages} changePage={changePage} currentPage={currentPage} />
 		</div>
   	);
 }
