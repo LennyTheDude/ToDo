@@ -34,6 +34,7 @@ const TaskList = () => {
 	const forceUpdate = useForceUpdate();
 
 	const getTasks = async () => {
+		console.log(tasks);
 		const result = await api.get(
 			'/tasks/', {params: {
 				orderBy: orderBy,
@@ -50,6 +51,7 @@ const TaskList = () => {
 		await api.delete(
 			'/task/', {data: {taskId: id}}
 		);
+		if (tasks.length === 1) {setCurrentPage(currentPage - 1)}
 		getTasks()
 		}
 
@@ -87,6 +89,7 @@ const TaskList = () => {
 			})
 			setTasks(modifiedTasks)
 		} else {
+			if (tasks.length === 1) {setCurrentPage(currentPage - 1)}
 			getTasks();
 		}
 	}
