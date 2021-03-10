@@ -19,7 +19,7 @@ router.post('/signup/',
         try {
             const newUser = req.body;
             // console.log(newUser);
-            console.log(safeword);
+            // console.log(safeword);
 
             const existingUser = await User.findOne({ where: { name: newUser.name } })
             // console.log(existingUser);
