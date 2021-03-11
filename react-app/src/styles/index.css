@@ -26,3 +26,7 @@ code {
 .task-done {
   background-color: #c3e6cb;
 }
+
+#login-form {
+  display: block;
+}
