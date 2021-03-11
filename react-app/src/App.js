@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
-import TaskList from './TaskList';
+import './styles/App.css';
+import TaskList from './components/tasklist/TaskList';
 import Paper from '@material-ui/core/Paper'
 
 const App = () => {
