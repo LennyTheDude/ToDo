@@ -14,8 +14,8 @@ const LoginPage = (props) => {
     }
 
     const handleLoginClick = () => {
-        console.log(`username: ${username}`);
-        console.log(`password: ${password}`);
+        // console.log(`username: ${username}`);
+        // console.log(`password: ${password}`);
 	    props.logIn(username, password)
     }
 

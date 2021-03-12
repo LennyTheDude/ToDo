@@ -48,14 +48,10 @@ const AuthCheck = () => {
         })
   	}, [token])
 
-    // const getInfo = () => {
-
-    // }
-
-    const logIn = async (un, pwd) => {
+    const signUp = async (un, pwd) => {
 		try {
             const token = await api.post(
-                '/login/', {name: un, password: pwd}
+                '/signup/', {name: un, password: pwd}
             );
             localStorage.setItem('accessToken', token.data.token)
             setToken(token.data.token)
@@ -65,6 +61,19 @@ const AuthCheck = () => {
             console.log({message: error.message});
         }
     }
+
+    const logIn = async (un, pwd) => {
+		try {
+            const token = await api.post(
+                '/login/', {name: un, password: pwd}
+            );
+            localStorage.setItem('accessToken', token.data.token)
+            setToken(token.data.token)
+        } catch (error) {
+            console.log({message: error.message});
+        }
+    }
+    
     const logOut = () => {
         localStorage.removeItem('accessToken')
         setToken('')

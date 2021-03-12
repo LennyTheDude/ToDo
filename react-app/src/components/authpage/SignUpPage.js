@@ -14,8 +14,8 @@ const SignUpPage = () => {
     }
 
     const handleSignupClick = () => {
-        console.log(`username: ${username}`);
-        console.log(`password: ${password}`);
+        // console.log(`username: ${username}`);
+        // console.log(`password: ${password}`);
     }
 
   	return (
