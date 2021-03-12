@@ -56,7 +56,10 @@ const TaskList = (props) => {
 		let input = event.target.value
 		if(event.key === 'Enter' && input){
 			const result = await api.post(
-				'/task/', {"taskName": `${input}`}
+				'/task/', {"taskName": `${input}`},
+				{headers: {
+					'Authorization': props.token
+				}}
 			);
 			event.target.value = '';
 			// console.log(result); // if result.status === 200 => 
@@ -109,7 +112,7 @@ const TaskList = (props) => {
 		<div className="task-list">
 			<div id="heading">
 				<div>
-					<h1>Your To-Do List</h1>
+					<h1>Your To-Do List, {props.username}</h1>
 				</div>
 				<div>
 					<Button id="logout"
