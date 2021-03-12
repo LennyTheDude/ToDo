@@ -35,6 +35,9 @@ const TaskList = (props) => {
 				filterBy: filterBy,
 				pageNumber: currentPage,
 				tasksPerPage: 5
+			},
+			headers: {
+				'Authorization': props.token
 			}}
 		);
     	setTasks(result.data.rows);

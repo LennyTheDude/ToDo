@@ -1,17 +1,19 @@
 const express = require('express')
 const router = express.Router()
 const Task = require('../../models').Task
+const auth = require('../../middleware/auth.middleware')
 
-router.get('/tasks/', async (req, res) => {
+router.get('/tasks/', auth, async (req, res) => {
  
-    const params = {}
- 
+    const params = {where:{}}
+    
     if (req.query.filterBy === 'done') {
-        params.where = { isDone: true }
+        params.where.isDone = true
     } else if (req.query.filterBy === 'undone') {
-        params.where = { isDone: false }
+        params.where.isDone = false
     }
 
+    params.where.ownerId = res.locals.userId;
     
     params.order = [['createdAt', req.query.orderBy ? req.query.orderBy : 'DESC']]
     
