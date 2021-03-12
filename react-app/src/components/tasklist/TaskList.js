@@ -6,6 +6,7 @@ import OutputParams from './OutputParams';
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/core/styles';
 import PageSelector from './PageSelector'
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const TaskList = () => {
+const TaskList = (props) => {
 	const [tasks, setTasks] = useState([])
 	const [orderBy, setOrderBy] = useState('DESC')
 	const [filterBy, setFilterBy] = useState('all')
@@ -102,7 +103,18 @@ const TaskList = () => {
 	}
 
   	return (
-		<div className="taskList">
+		<div className="task-list">
+			<div id="heading">
+				<div>
+					<h1>Your To-Do List</h1>
+				</div>
+				<div>
+					<Button id="logout"
+							onClick={props.logOut}
+							variant='contained'
+						>log out</Button>
+				</div>
+			</div>
 			<OutputParams
 				changeOrder={changeOrder}
 				changeFilter={changeFilter} 

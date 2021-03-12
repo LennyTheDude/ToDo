@@ -47,10 +47,16 @@ const AuthCheck = () => {
             console.log({message: error.message});
         }
     }
+    const logOut = () => {
+        localStorage.removeItem('accessToken')
+        setToken('')
+        setLoggedIn(false)
+        setName('')
+    }
 
     return (
         <div>
-            {loggedIn ? <TaskList /> :
+            {loggedIn ? <TaskList logOut={logOut} /> :
             <LoginPage logIn={logIn} />}
         </div>
     );

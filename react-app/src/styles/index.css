@@ -30,3 +30,8 @@ code {
 #login-form {
   display: block;
 }
+
+#heading {
+  display: flex;
+  justify-content: space-evenly;
+}
