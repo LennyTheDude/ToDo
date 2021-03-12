@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core'
 
-const LoginPage = () => {
+const LoginPage = (props) => {
 	const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     
@@ -16,6 +16,7 @@ const LoginPage = () => {
     const handleLoginClick = () => {
         console.log(`username: ${username}`);
         console.log(`password: ${password}`);
+	    props.logIn(username, password)
     }
 
   	return (

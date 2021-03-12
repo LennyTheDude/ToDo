@@ -29,13 +29,12 @@ router.post('/signup/',
             }
 
             const createdUser = await User.create(newUser)
-            const token = jwt.sign({ userId: createdUser.id }, safeword, {
+            const token = jwt.sign({ userId: createdUser.id, userName: createdUser.name}, safeword, {
                 expiresIn: '1h',
             });
             // console.log(createdUser);
             res.status(200).json({
                 token,
-                userName: createdUser.name,
             });
         } catch (error) {
             res.status(500).send({message: error.message})
